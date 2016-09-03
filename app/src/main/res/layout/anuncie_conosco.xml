@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@color/icons"
+    >
+
+    <LinearLayout
+        android:id="@+id/layout1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+        android:layout_marginRight="@dimen/activity_horizontal_margin"
+        >
+
+
+        <TextView
+            android:layout_marginTop="16dp"
+            android:text="@string/anuncie_sua_marca"
+            android:textColor="@color/primary_text"
+            android:textSize="30dp"
+            android:layout_gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+
+        <TextView
+            android:layout_marginTop="16dp"
+            android:text="@string/nome"
+            android:textSize="20dp"
+            android:textColor="@color/primary_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+
+
+        <EditText
+            android:id="@+id/nome"
+            android:textColor="@color/primary_text"
+            android:hint="@string/digiteSeuNome"
+            android:textColorHint="@color/divider"
+            android:layout_marginTop="2dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+
+        <TextView
+            android:layout_marginTop="16dp"
+            android:text="@string/nomeDaSuaEmpresa"
+            android:textSize="20dp"
+            android:textColor="@color/primary_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <EditText
+            android:id="@+id/nomeDaEmpresa"
+            android:textColor="@color/primary_text"
+            android:textColorHint="@color/divider"
+            android:hint="Digite o nome da sua empresa"
+            android:layout_marginTop="2dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:layout_marginTop="16dp"
+            android:text="Telefone:"
+            android:textSize="20dp"
+            android:textColor="@color/primary_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <EditText
+            android:id="@+id/telefone"
+            android:inputType="phone"
+            android:textColor="@color/primary_text"
+            android:hint="(00) 0000 - 0000"
+            android:textColorHint="@color/divider"
+            android:layout_marginTop="2dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:layout_marginTop="16dp"
+            android:text="E-mail:"
+            android:textSize="20dp"
+            android:textColor="@color/primary_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <EditText
+            android:id="@+id/email"
+            android:inputType="textEmailAddress"
+            android:textColor="@color/primary_text"
+            android:hint="email@email.com.br"
+            android:textColorHint="@color/divider"
+            android:layout_marginTop="2dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+
+        <Button
+            android:layout_gravity="left"
+            android:layout_marginTop="10dp"
+            android:id="@+id/btnEnviar"
+            android:layout_marginLeft="50dp"
+            android:background="@color/verde"
+            android:textColor="@color/icons"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:text="Enviar"
+        />
+
+        <Button
+
+            android:id="@+id/btnLimpar"
+            android:layout_marginLeft="200dp"
+            android:layout_marginTop="-30dp"
+            android:background="@color/divider"
+            android:textColor="@color/primary_text"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:layout_gravity="right"
+            android:text="Limpar"
+            android:layout_marginRight="50dp"
+       />
+
+    </LinearLayout>
+
+</ScrollView>

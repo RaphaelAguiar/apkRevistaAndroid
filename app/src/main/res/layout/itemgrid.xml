@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    >
+
+    <ImageView
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+        android:layout_marginTop="@dimen/activity_horizontal_margin"
+        android:id="@+id/capaGridview"
+        android:src="@drawable/revista06"
+        />
+
+    <Button
+        android:id="@+id/btnLerGrid"
+        android:layout_width="60dp"
+        android:layout_height="30dp"
+        android:textSize="10dp"
+        android:text="Ler"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="230dp"
+        />
+
+    <CheckBox
+        android:id="@+id/favoritosGrid"
+        android:layout_width="15dp"
+        android:layout_height="15dp"
+        android:layout_marginTop="238dp"
+        android:layout_marginLeft="85dp"
+        />
+
+    <TextView
+        android:background="@color/divider"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Favoritos"
+        android:textColor="@color/primary_text"
+        android:layout_marginTop="238dp"
+        android:layout_marginLeft="105dp"
+        />
+
+    <ImageView
+        android:layout_width="190dp"
+        android:layout_height="90dp"
+        android:src="@drawable/prateleira01"
+        android:layout_marginTop="252dp"
+
+        />
+
+
+
+</RelativeLayout>
