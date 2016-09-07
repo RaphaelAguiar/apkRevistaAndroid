@@ -33,7 +33,7 @@ public class TodasRevistasFragment extends Fragment {
             revistas = savedInstanceState.getParcelableArrayList("1");
         }
         else{
-            revistas = RevistaDao.getInstacia().getItens();
+            revistas = RevistaDao.getInstancia().getItens(true);
         }
 
             todasRevistas = inflater.inflate(R.layout.todasrevistas, container, false);

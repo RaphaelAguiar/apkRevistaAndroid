@@ -2,9 +2,7 @@ package com.example.fillipeteixeira.apprevista.activitys;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import com.example.fillipeteixeira.apprevista.adapters.RevistaAdapter;
 import com.example.fillipeteixeira.apprevista.entidades.Revista;
@@ -23,7 +21,7 @@ public class TelaListar extends Activity {
         setContentView(R.layout.activity_tela_listar);
 
         if(savedInstanceState == null){
-            revistas =  RevistaDao.getInstacia().getItens();
+            revistas =  RevistaDao.getInstancia().getItens(true);
         }
         else{
            revistas = savedInstanceState.getParcelableArrayList("1");

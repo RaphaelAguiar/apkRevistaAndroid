@@ -34,7 +34,7 @@ public class FavoritosFragment extends Fragment {
             favoritos = savedInstanceState.getParcelableArrayList("1");
         }
         else{
-            favoritos = RevistaDao.getInstacia().getItens();
+            favoritos = RevistaDao.getInstancia().getItens(true);
         }
 
             RevistaAdapter adapter = new RevistaAdapter(this.getContext(), favoritos);

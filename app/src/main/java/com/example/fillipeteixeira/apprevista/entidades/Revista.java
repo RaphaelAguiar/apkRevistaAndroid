@@ -1,5 +1,7 @@
 package com.example.fillipeteixeira.apprevista.entidades;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Parcel;
 import android.os.Parcelable;
 
@@ -8,21 +10,21 @@ import android.os.Parcelable;
  */
 public class Revista implements Parcelable {
 
-    private String nome;
-    private String edicao;
-    private String subTitulo;
-    private int qtdPaginas;
-    private int imagem;
-    private String caminho;
+    private String  nome;
+    private int     edicao;
+    private String  subTitulo;
+    private int     qtdPaginas;
+    private Bitmap  imagem;
+    private String  caminho;
     private Boolean favoritos;
     private Boolean lida;
 
     protected Revista(Parcel in) {
         nome = in.readString();
-        edicao = in.readString();
+        edicao = in.readInt();
         subTitulo = in.readString();
         qtdPaginas = in.readInt();
-        imagem = in.readInt();
+        imagem = in.readParcelable(getClass().getClassLoader());
         caminho = in.readString();
     }
 
@@ -54,7 +56,7 @@ public class Revista implements Parcelable {
         this.qtdPaginas = qtdPaginas;
     }
 
-    public Revista(String nome, String edicao, int imagem, String caminho, String subTitulo, int qtdPaginas) {
+    public Revista(String nome, int edicao, Bitmap imagem, String caminho, String subTitulo, int qtdPaginas) {
         this.nome = nome;
         this.edicao = edicao;
         this.imagem = imagem;
@@ -90,19 +92,19 @@ public class Revista implements Parcelable {
         this.nome = nome;
     }
 
-    public String getEdicao() {
+    public int getEdicao() {
         return edicao;
     }
 
-    public void setEdicao(String edicao) {
+    public void setEdicao(int edicao) {
         this.edicao = edicao;
     }
 
-    public int getImagem() {
+    public Bitmap getImagem() {
         return imagem;
     }
 
-    public void setImagem(int imagem) {
+    public void setImagem(Bitmap imagem) {
         this.imagem = imagem;
     }
 
@@ -122,10 +124,10 @@ public class Revista implements Parcelable {
     @Override
     public void writeToParcel(Parcel parcel, int i) {
         parcel.writeString(nome);
-        parcel.writeString(edicao);
+        parcel.writeInt(edicao);
         parcel.writeString(subTitulo);
         parcel.writeInt(qtdPaginas);
-        parcel.writeInt(imagem);
+        imagem.writeToParcel(parcel,i);
         parcel.writeString(caminho);
     }
 }

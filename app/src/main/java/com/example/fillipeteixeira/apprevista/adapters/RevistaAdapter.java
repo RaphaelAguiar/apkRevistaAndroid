@@ -70,7 +70,7 @@ public class RevistaAdapter extends BaseAdapter {
         final TextView nome = (TextView) v.findViewById(R.id.nome);
         TextView edicao = (TextView) v.findViewById(R.id.edicao);
         ImageView capa = (ImageView) v.findViewById(R.id.capa);
-       TextView  subtitulo = (TextView) v.findViewById(R.id.txtSubtitulo);
+        TextView  subtitulo = (TextView) v.findViewById(R.id.txtSubtitulo);
         TextView qtdPaginas = (TextView) v.findViewById(R.id.txtQtPaginas);
         final ImageView estrela = (ImageView) v.findViewById(R.id.estrela);
 
@@ -86,8 +86,8 @@ public class RevistaAdapter extends BaseAdapter {
         BitmapFactory.Options options = new BitmapFactory.Options();
         options.inSampleSize = 8;
 
-        Bitmap bm = BitmapFactory.decodeResource(inflater.getContext().getResources(), r.getImagem(), options);
-        bm = bm.createScaledBitmap(bm, 80, 90, true);
+        Bitmap bm = r.getImagem();
+        //bm = bm.createScaledBitmap(bm, 80, 90, true);
 
         if (r.getFavoritos()){
             estrela.setImageResource(R.drawable.star_gold);
@@ -112,8 +112,8 @@ public class RevistaAdapter extends BaseAdapter {
         });
 
         nome.setText(r.getNome());
-       edicao.setText(r.getEdicao());
-        capa.setImageResource(r.getImagem());
+        edicao.setText("Edição: " + r.getEdicao());
+        capa.setImageBitmap(r.getImagem());
         subtitulo.setText(r.getSubTitulo());
         qtdPaginas.setText(String.valueOf(r.getQtdPaginas())+" páginas");
       //  capa.setImageBitmap(bm);

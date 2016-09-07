@@ -20,9 +20,11 @@ android {
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile fileTree(include: ['*.jar'], dir: 'libs')
     testCompile 'junit:junit:4.12'
     compile 'com.android.support:appcompat-v7:24.1.1'
     compile 'com.android.support:design:24.1.1'
+    compile files('src/main/java/com/example/fillipeteixeira/apprevista/persistencia/restful/android-async-http-1.4.9.jar')
+    compile files('src/main/java/com/example/fillipeteixeira/apprevista/persistencia/restful/httpclient-4.3.6.jar')
 }
 
