@@ -5,6 +5,9 @@ import android.graphics.BitmapFactory;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.example.fillipeteixeira.apprevista.R;
+import com.example.fillipeteixeira.apprevista.persistencia.ImagemDao;
+
 /**
  * Created by Fillipe Teixeira on 24/07/2016.
  */
@@ -15,6 +18,7 @@ public class Revista implements Parcelable {
     private String  subTitulo;
     private int     qtdPaginas;
     private Bitmap  imagem;
+    private boolean imagemCarregada;
     private String  caminho;
     private Boolean favoritos;
     private Boolean lida;
@@ -44,27 +48,19 @@ public class Revista implements Parcelable {
         return subTitulo;
     }
 
-    public void setSubTitulo(String subTitulo) {
-        this.subTitulo = subTitulo;
-    }
-
     public int getQtdPaginas() {
         return qtdPaginas;
     }
 
-    public void setQtdPaginas(int qtdPaginas) {
+    public Revista(String nome, int edicao, String caminho, String subTitulo, int qtdPaginas) {
+        this.nome       = nome;
+        this.edicao     = edicao;
+        this.caminho    = caminho;
+        this.subTitulo  = subTitulo;
         this.qtdPaginas = qtdPaginas;
-    }
-
-    public Revista(String nome, int edicao, Bitmap imagem, String caminho, String subTitulo, int qtdPaginas) {
-        this.nome = nome;
-        this.edicao = edicao;
-        this.imagem = imagem;
-        this.caminho = caminho;
-        favoritos = false;
-        lida = false;
-        this.subTitulo = subTitulo;
-        this.qtdPaginas = qtdPaginas;
+        favoritos       = false;
+        lida            = false;
+        imagemCarregada = false;
 
     }
 
@@ -101,19 +97,19 @@ public class Revista implements Parcelable {
     }
 
     public Bitmap getImagem() {
+        if(!imagemCarregada) {
+            imagem = ImagemDao.getInstancia().getCapa(getNome(), true);
+            if(imagem==null){
+                imagem = BitmapFactory.decodeResource(null,R.drawable.empty);
+            }else{
+                imagemCarregada = true;
+            }
+        }
         return imagem;
-    }
-
-    public void setImagem(Bitmap imagem) {
-        this.imagem = imagem;
     }
 
     public String getCaminho() {
         return caminho;
-    }
-
-    public void setCaminho(String caminho) {
-        this.caminho = caminho;
     }
 
     @Override
@@ -127,7 +123,7 @@ public class Revista implements Parcelable {
         parcel.writeInt(edicao);
         parcel.writeString(subTitulo);
         parcel.writeInt(qtdPaginas);
-        imagem.writeToParcel(parcel,i);
+        getImagem().writeToParcel(parcel,i);
         parcel.writeString(caminho);
     }
 }

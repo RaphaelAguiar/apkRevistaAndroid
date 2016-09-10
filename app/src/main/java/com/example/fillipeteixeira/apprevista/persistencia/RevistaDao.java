@@ -42,15 +42,14 @@ public class RevistaDao extends Dao {
                             JSONObject obj = array.getJSONObject(i);
 
                             String nomeDaRevista = obj.getString("nome");
+                            String subTitulo     = obj.getString("subTitulo");
                             int nPaginas         = obj.getInt("nPaginas");
-
-                            Bitmap miniatura = ImagemDao.getInstancia().getCapa(obj.getString("nome"),true);
+                            int edicao           = obj.getInt("edicao");
 
                             lista.add(new Revista(nomeDaRevista,
-                                    0,
-                                    miniatura,//miniatura,
+                                    edicao,
                                     "default",
-                                    "",
+                                    subTitulo,
                                     nPaginas));
                         }
                     } catch (JSONException e) {

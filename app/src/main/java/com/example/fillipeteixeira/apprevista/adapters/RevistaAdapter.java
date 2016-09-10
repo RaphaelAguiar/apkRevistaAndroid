@@ -93,7 +93,7 @@ public class RevistaAdapter extends BaseAdapter {
             estrela.setImageResource(R.drawable.star_gold);
         }
         else{
-            estrela.setImageResource(R.drawable.star_white1);
+            estrela.setImageResource(R.drawable.star_white);
         }
 
         estrela.setOnClickListener(new View.OnClickListener() {
@@ -105,7 +105,7 @@ public class RevistaAdapter extends BaseAdapter {
                     r.setFavoritos(true);
                 }
                 else{
-                    estrela.setImageResource(R.drawable.star_white1);
+                    estrela.setImageResource(R.drawable.star_white);
                     r.setFavoritos(false);
                 }
             }
@@ -115,9 +115,7 @@ public class RevistaAdapter extends BaseAdapter {
         edicao.setText("Edição: " + r.getEdicao());
         capa.setImageBitmap(r.getImagem());
         subtitulo.setText(r.getSubTitulo());
-        qtdPaginas.setText(String.valueOf(r.getQtdPaginas())+" páginas");
-      //  capa.setImageBitmap(bm);
-
+        qtdPaginas.setText(r.getQtdPaginas()+" página" + (r.getQtdPaginas() > 1 ? "s" : ""));
         return v;
     }
 }

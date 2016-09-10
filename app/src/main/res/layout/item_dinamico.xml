@@ -16,7 +16,7 @@
 
         <ImageView
             android:id="@+id/capa"
-            android:src="@drawable/revista06"
+            android:src="@drawable/empty"
             android:layout_width="100dp"
             android:layout_height="140dp"
 
@@ -24,7 +24,7 @@
 
         <ImageView
             android:id="@+id/estrela"
-            android:src="@drawable/star_white1"
+            android:src="@drawable/star_white"
             android:layout_width="32dp"
             android:layout_height="32dp"
             android:layout_alignParentTop="true"
