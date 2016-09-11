@@ -27,8 +27,8 @@ public class FavoritosFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-            revistasFavoritas = inflater.inflate(R.layout.favoritas, container, false);
-            ListView listaRevistas = (ListView) revistasFavoritas.findViewById(R.id.listaFavoritos);
+        revistasFavoritas = inflater.inflate(R.layout.favoritas, container, false);
+        ListView listaRevistas = (ListView) revistasFavoritas.findViewById(R.id.listaFavoritos);
 
         if(savedInstanceState != null){
             favoritos = savedInstanceState.getParcelableArrayList("1");

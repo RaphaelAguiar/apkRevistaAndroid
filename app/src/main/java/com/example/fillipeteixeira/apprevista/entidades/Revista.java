@@ -8,6 +8,8 @@ import android.os.Parcelable;
 import com.example.fillipeteixeira.apprevista.R;
 import com.example.fillipeteixeira.apprevista.persistencia.ImagemDao;
 
+import java.util.ArrayList;
+
 /**
  * Created by Fillipe Teixeira on 24/07/2016.
  */
@@ -17,20 +19,10 @@ public class Revista implements Parcelable {
     private int     edicao;
     private String  subTitulo;
     private int     qtdPaginas;
-    private Bitmap  imagem;
-    private boolean imagemCarregada;
     private String  caminho;
     private Boolean favoritos;
     private Boolean lida;
-
-    protected Revista(Parcel in) {
-        nome = in.readString();
-        edicao = in.readInt();
-        subTitulo = in.readString();
-        qtdPaginas = in.readInt();
-        imagem = in.readParcelable(getClass().getClassLoader());
-        caminho = in.readString();
-    }
+    private ArrayList<Pagina> paginas;
 
     public static final Creator<Revista> CREATOR = new Creator<Revista>() {
         @Override
@@ -52,16 +44,35 @@ public class Revista implements Parcelable {
         return qtdPaginas;
     }
 
-    public Revista(String nome, int edicao, String caminho, String subTitulo, int qtdPaginas) {
+    private void inicializarVariaveis(String nome, int edicao, String caminho, String subTitulo, int qtdPaginas, boolean favoritos, boolean lida){
         this.nome       = nome;
         this.edicao     = edicao;
         this.caminho    = caminho;
         this.subTitulo  = subTitulo;
         this.qtdPaginas = qtdPaginas;
-        favoritos       = false;
-        lida            = false;
-        imagemCarregada = false;
+        this.favoritos  = favoritos;
+        this.lida       = lida;
 
+        paginas = new ArrayList<Pagina>();
+        for (int i = 1 ; i <= qtdPaginas; i++){
+            paginas.add(new Pagina(this,i));
+        }
+    }
+
+    public Revista(String nome, int edicao, String caminho, String subTitulo, int qtdPaginas) {
+        inicializarVariaveis(nome,edicao,caminho,subTitulo,qtdPaginas,false,false);
+    }
+
+    protected Revista(Parcel in) {
+        //Manter nesta ordem!
+        String nome       = in.readString();
+        int    edicao     = in.readInt();
+        String subTitulo  = in.readString();
+        int    qtdPaginas = in.readInt();
+        String caminho    = in.readString();
+        boolean favoritos = in.readByte() == 1;
+        boolean lida       = in.readByte() == 1;
+        inicializarVariaveis(nome,edicao,caminho,subTitulo,qtdPaginas,favoritos,lida);
     }
 
     public Boolean getFavoritos() {
@@ -96,16 +107,8 @@ public class Revista implements Parcelable {
         this.edicao = edicao;
     }
 
-    public Bitmap getImagem() {
-        if(!imagemCarregada) {
-            imagem = ImagemDao.getInstancia().getCapa(getNome(), true);
-            if(imagem==null){
-                imagem = BitmapFactory.decodeResource(null,R.drawable.empty);
-            }else{
-                imagemCarregada = true;
-            }
-        }
-        return imagem;
+    public Pagina getCapa() {
+        return paginas.get(0);
     }
 
     public String getCaminho() {
@@ -123,7 +126,8 @@ public class Revista implements Parcelable {
         parcel.writeInt(edicao);
         parcel.writeString(subTitulo);
         parcel.writeInt(qtdPaginas);
-        getImagem().writeToParcel(parcel,i);
         parcel.writeString(caminho);
+        parcel.writeByte((byte) (favoritos ? 1 : 0));
+        parcel.writeByte((byte) (lida      ? 1 : 0));
     }
 }
