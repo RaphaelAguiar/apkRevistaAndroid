@@ -7,11 +7,7 @@ public class HttpUtils {
     private static final String          ENDERECO = "http://apkrevista.hopto.org:8080/apkRevista";
     private static final String          CLIENTE  = "clienteTeste";
     private static final SyncHttpClient client    = new SyncHttpClient();
-
-    static {
-        client.setTimeout(10);
-    }
-
+    
     public static RequestParams getRequestParams(){
         RequestParams retorno = new RequestParams();
         retorno.put("cliente",CLIENTE);
