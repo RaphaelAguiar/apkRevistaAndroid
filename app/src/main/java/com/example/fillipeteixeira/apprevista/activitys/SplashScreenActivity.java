@@ -16,10 +16,22 @@ public class SplashScreenActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash_screen);
-        RevistaDao.getInstancia();
-        finish();
-        Intent intent = new Intent();
-        intent.setClass(SplashScreenActivity.this, TelaAbasActivity.class);
-        startActivity(intent);
+//        RevistaDao.getInstancia();
+//        finish();
+//        Intent intent = new Intent();
+//        intent.setClass(SplashScreenActivity.this, TelaAbasActivity.class);
+//        startActivity(intent);
+
+        //Fillipe
+        new Timer().schedule(new TimerTask() {
+            @Override
+            public void run() {
+                finish();
+                Intent intent = new Intent();
+                intent.setClass(SplashScreenActivity.this, TelaAbasActivity.class);
+                startActivity(intent);
+            }
+        }, 2000);
+
     }
 }

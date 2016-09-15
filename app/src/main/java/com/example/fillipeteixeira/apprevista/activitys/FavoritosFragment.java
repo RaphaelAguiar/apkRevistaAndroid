@@ -9,9 +9,12 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 
 import com.example.fillipeteixeira.apprevista.adapters.RevistaAdapter;
+import com.example.fillipeteixeira.apprevista.adapters.RevistaAdapterF;
 import com.example.fillipeteixeira.apprevista.entidades.Revista;
+import com.example.fillipeteixeira.apprevista.entidades.RevistaF;
 import com.example.fillipeteixeira.apprevista.persistencia.RevistaDao;
 import com.example.fillipeteixeira.apprevista.R;
+import com.example.fillipeteixeira.apprevista.persistencia.RevistaDaoF;
 
 import java.util.ArrayList;
 
@@ -21,6 +24,7 @@ import java.util.ArrayList;
 public class FavoritosFragment extends Fragment {
 
      ArrayList<Revista> favoritos;
+    ArrayList<RevistaF> favoritosF;
      View revistasFavoritas;
 
     @Nullable
@@ -30,16 +34,23 @@ public class FavoritosFragment extends Fragment {
             revistasFavoritas = inflater.inflate(R.layout.favoritas, container, false);
             ListView listaRevistas = (ListView) revistasFavoritas.findViewById(R.id.listaFavoritos);
 
+
         if(savedInstanceState != null){
-            favoritos = savedInstanceState.getParcelableArrayList("1");
+          //  favoritos = savedInstanceState.getParcelableArrayList("1");
+            favoritosF = savedInstanceState.getParcelableArrayList("1");
         }
         else{
-            favoritos = RevistaDao.getInstancia().getItens(true);
+           // favoritos = RevistaDao.getInstancia().getItens(true);
+            favoritosF = RevistaDaoF.getInstancia().getItensFavoritos();
         }
 
-            RevistaAdapter adapter = new RevistaAdapter(this.getContext(), favoritos);
-            listaRevistas.setAdapter(adapter);
-            adapter.notifyDataSetChanged();
+            //RevistaAdapter adapter = new RevistaAdapter(this.getContext(), favoritos);
+            //listaRevistas.setAdapter(adapter);
+            //adapter.notifyDataSetChanged();
+
+        RevistaAdapterF adapterF = new RevistaAdapterF(this.getContext(), favoritosF);
+        listaRevistas.setAdapter(adapterF);
+        adapterF.notifyDataSetChanged();
 
         return revistasFavoritas;
 
@@ -49,6 +60,6 @@ public class FavoritosFragment extends Fragment {
     @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        outState.putParcelableArrayList("1", favoritos);
+        outState.putParcelableArrayList("1", favoritosF);
     }
 }
