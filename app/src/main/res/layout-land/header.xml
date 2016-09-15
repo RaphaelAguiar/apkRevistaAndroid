@@ -11,7 +11,7 @@
         android:layout_height="60dp"
         android:orientation="vertical"
         android:layout_gravity="center_horizontal"
-        android:src="@drawable/logoviveirgoias"
+        android:src="@drawable/logo"
 
         />
 </LinearLayout>

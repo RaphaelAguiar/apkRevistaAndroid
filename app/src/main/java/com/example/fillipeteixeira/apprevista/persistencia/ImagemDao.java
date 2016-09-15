@@ -1,11 +1,22 @@
 package com.example.fillipeteixeira.apprevista.persistencia;
 
+import android.app.Activity;
+import android.content.Context;
+import android.content.ContextWrapper;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.os.Environment;
+import android.support.v4.graphics.BitmapCompat;
 
+import com.example.fillipeteixeira.apprevista.activitys.TelaAbasActivity;
 import com.example.fillipeteixeira.apprevista.persistencia.restful.HttpUtils;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 
 import cz.msebera.android.httpclient.Header;
 
@@ -15,34 +26,50 @@ import cz.msebera.android.httpclient.Header;
 public class ImagemDao extends Dao{
     private static final ImagemDao instancia = new ImagemDao();
 
-    private ImagemDao(){
-
-    }
-
     public static ImagemDao getInstancia() {
         return instancia;
     }
 
-    private Bitmap retornoMetodoGetCapa;
-    public Bitmap getCapa(String nomeDaRevista,boolean aguardar) {
-        RequestParams request = HttpUtils.getRequestParams();
-        request.put("nomeDaRevista",nomeDaRevista);
-        request.put("nPagina",1);
-        request.put("miniatura",true);
-        get("obterImagem",request,aguardar,new AsyncHttpResponseHandler(){
-            @Override
-            public void onSuccess(int state, Header[] headers, byte[] imagem){
-                retornoMetodoGetCapa = BitmapFactory.decodeByteArray(imagem,0,imagem.length);
-            }
+    private Bitmap getLocalImage(String nomeDaRevista, int nPagina){
+        return BitmapFactory.decodeFile(getFilePath(nomeDaRevista,Integer.toString(nPagina)));
+    }
 
-            @Override
-            public void onFailure(int i, Header[] headers, byte[] bytes, Throwable throwable) {
-                throwable.printStackTrace();
-            }
-        });
+    private void saveToExternalStorage(String dir, String fileName,Bitmap bitmapImage){
+        try {
+            FileOutputStream fos = getFileOutputStream(dir,fileName);
+            bitmapImage.compress(Bitmap.CompressFormat.PNG,100,fos);
+            fos.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
-        Bitmap retorno       = retornoMetodoGetCapa;
-        retornoMetodoGetCapa = null;
+    private Bitmap retornoGet;
+    public Bitmap get(String nomeDaRevista,int nPagina,boolean miniatura,boolean aguardar) {
+        Bitmap retorno = getLocalImage(nomeDaRevista,nPagina);
+        if(retorno==null) {
+            RequestParams request = HttpUtils.getRequestParams();
+            request.put("nomeDaRevista", nomeDaRevista);
+            request.put("nPagina", nPagina);
+            request.put("miniatura", miniatura);
+            get("obterImagem", request, aguardar, new AsyncHttpResponseHandler() {
+                @Override
+                public void onSuccess(int state, Header[] headers, byte[] imagem) {
+                    while(retornoGet!=null);
+                    retornoGet = BitmapFactory.decodeByteArray(imagem, 0, imagem.length);
+                }
+
+                @Override
+                public void onFailure(int i, Header[] headers, byte[] bytes, Throwable throwable) {
+                    throwable.printStackTrace();
+                }
+            });
+            retorno    = retornoGet;
+            retornoGet = null;
+
+            if(retorno!=null)
+                saveToExternalStorage(nomeDaRevista,Integer.toString(nPagina),retorno);
+        }
         return retorno;
     }
 }

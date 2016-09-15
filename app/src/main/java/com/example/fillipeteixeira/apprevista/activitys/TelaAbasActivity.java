@@ -26,8 +26,6 @@ public class TelaAbasActivity extends AppCompatActivity {
         mViewPager.setAdapter(pagerAdapter);
         mTabLayout = (TabLayout) findViewById(R.id.tabs);
         mTabLayout.setupWithViewPager(mViewPager);
-
-
     }
 
 }
